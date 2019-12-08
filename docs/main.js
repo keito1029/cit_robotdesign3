@@ -1,3 +1,4 @@
+
 // 構造体
 function ImuData() {
     this.a_x;
@@ -28,21 +29,6 @@ function connect() {
             name: 'imu/data_raw',
             messageType: "sensor_msgs/Imu"
         });
-
-        closemsg = new ROSLIB.Topic({
-        name        : '/button/close',
-        messageType : 'std_msgs/Empty'
-        });
-        takeoffmsg = new ROSLIB.Topic({
-        name        : '/button/open',
-        messageType : 'std_msgs/Empty'
-        });
-        function land(){
-        close_msg.publish()
-        };
-        function takeoff(){
-        open_msg.publish()
-        };
 
         ros.on('connection', function () {
             console.log("WebSocket: connected");
