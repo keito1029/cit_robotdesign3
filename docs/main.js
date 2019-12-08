@@ -30,12 +30,12 @@ function connect() {
             messageType: "sensor_msgs/Imu"
         });
         closemsg = new ROSLIB.Topic({
-        ros: ros,
+        
         name        : '/button/close',
         messageType : "std_msgs/Bool"
         });
         openmsg = new ROSLIB.Topic({
-        ros: ros,
+        
         name        : '/button/open',
         messageType : "std_msgs/Bool"
         });
@@ -111,9 +111,9 @@ var data_send = function () {
     }
 }
 
-        close_msg.publish(data);
+        closemsg.publish(data);
         
-        open_msg.publish(data);
+        openmsg.publish(data);
         
 window.addEventListener("devicemotion", devicemotionHandler);
 function devicemotionHandler(event) {
