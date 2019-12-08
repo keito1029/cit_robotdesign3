@@ -29,8 +29,6 @@ function connect() {
             name: 'imu/data_raw',
             messageType: "sensor_msgs/Imu"
         });
-        
-        
 
         ros.on('connection', function () {
             console.log("WebSocket: connected");
@@ -103,8 +101,6 @@ var data_send = function () {
     }
 }
 
-
-
 window.addEventListener("devicemotion", devicemotionHandler);
 function devicemotionHandler(event) {
 
@@ -136,3 +132,27 @@ function devicemotionHandler(event) {
 };
 
 setInterval(data_send, 10);
+
+var data=boolian("true");
+
+var closemsg = new ROSLIB.Topic({
+
+        name        : '/button/close',
+
+        messageType : "std_msgs/Bool"
+
+        });
+
+closemsg.publish(data);
+
+function close(data){
+
+    if(data==true){
+
+        data=false;
+
+    }else{
+
+        data=true;
+
+    };
