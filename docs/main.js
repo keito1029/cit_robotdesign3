@@ -29,6 +29,14 @@ function connect() {
             name: 'imu/data_raw',
             messageType: "sensor_msgs/Imu"
         });
+        closemsg = new ros.Topic({
+        name        : '/botton/close',
+        messageType : 'std_msgs/Empty'
+        });
+        takeoffmsg = new ros.Topic({
+        name        : '/button/open',
+        messageType : 'std_msgs/Empty'
+        });
 
         ros.on('connection', function () {
             console.log("WebSocket: connected");
@@ -100,6 +108,13 @@ var data_send = function () {
         imu_publisher.publish(msg);
     }
 }
+
+        function land(){
+        close_msg.publish()
+        };
+        function takeoff(){
+        open_msg.publish()
+        };
 
 window.addEventListener("devicemotion", devicemotionHandler);
 function devicemotionHandler(event) {
