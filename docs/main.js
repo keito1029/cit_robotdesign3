@@ -133,7 +133,7 @@ function devicemotionHandler(event) {
 
 setInterval(data_send, 10);
 
-/*
+
 var data=boolian("true");
 
 var closemsg = new ROSLIB.Topic({
@@ -156,4 +156,4 @@ function close(data){
 
         data=true;
 
-    };*/
+    };
