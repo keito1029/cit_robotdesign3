@@ -75,6 +75,7 @@ function connect() {
         function takeoff(){
 
         open_msg.publish()
+        };
 
         window.addEventListener("deviceorientation", (event) => {
     // http://wiki.ros.org/roslibjs/Tutorials/Publishing%20video%20and%20IMU%20data%20with%20roslibjs
