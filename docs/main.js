@@ -33,7 +33,7 @@ function connect() {
         name        : '/button/close',
         messageType : "std_msgs/Bool"
         });
-        takeoffmsg = new ROSLIB.Topic({
+        openmsg = new ROSLIB.Topic({
         name        : '/button/open',
         messageType : "std_msgs/Bool"
         });
