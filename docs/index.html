@@ -1,45 +1,26 @@
- <!DOCTYPE html>
-
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
-
   <meta charset="utf-8">
-
   <meta name="apple-mobile-web-app-capable" content="yes" />
-
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
   <meta name="viewport"
-
     content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
   <link rel="stylesheet" type="text/css" href="./style.css">
-
 </head>
 
 <body>
-
   <div id="main">
-
     <form action="" name="address_form" method="GET">
-
       <input type="text" name="address" value="xxx.ngrok.io">
-
       <button type="button" class="btn btn-info btn" onClick="connect();">Connnect</button>
-
     </form>
-
     <p>------------------------<br>
-
       接続状態 : <span class="badge badge-secondary" id="wss_info">未接続</span><br>
-
-     
- ------------------------</p>
+      ------------------------</p>
 
 
     加速度x: <span id="a_x">0</span><br>
@@ -52,13 +33,6 @@
     <p>------------------------</p>
 
     <button type="button" class="btn btn-dark btn-lg" onClick="request_permission();">姿勢情報のアクセス許可 (iOS)</button>
-
-
-   
-   
-   
-<button class="gripper" id="close" type="button" onclick="close()">close</button>
-<button class="gripper" id="open" type="button" onclick="open()">open</button>
 
     <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
     <script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
