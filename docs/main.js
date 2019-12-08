@@ -103,18 +103,7 @@ var data_send = function () {
     }
 }
 
-var closemsg = new ROSLIB.Topic({
 
-        name        : '/button/close',
-        messageType : "std_msgs/Bool"
-        });
-closemsg.publish(data);
-function close(data){
-    if(data==true){
-        data=false;
-    }else{
-        data=true;
-    };
 
 window.addEventListener("devicemotion", devicemotionHandler);
 function devicemotionHandler(event) {
