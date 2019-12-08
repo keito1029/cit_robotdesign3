@@ -1,83 +1,82 @@
 // 構造体
-
 function ImuData() {
-
     this.a_x;
-
     this.a_y;
-
     this.a_z;
-
     this.v_a;
-
     this.v_b;
-
     this.v_g;
 
     this.o_x;
-
     this.o_y;
-
     this.o_z;
-
     this.o_w;
-
 }
 
 var imu_data = new ImuData();
-
 quaternionpose = new THREE.Quaternion;
-
 var imu_publisher;
 
 function connect() {
-
     if (address_form.address.value == "") {
-
         alert("IPアドレスを入力してください。");
-
     } else {
-
         var ros = new ROSLIB.Ros({ url: 'wss://' + address_form.address.value });
 
         imu_publisher = new ROSLIB.Topic({
-
             ros: ros,
-
             name: 'imu/data_raw',
-
             messageType: "sensor_msgs/Imu"
-
         });
 
-        closemsg = new ros.Topic({
-
-        name        : '/botton/close',
-
+        closemsg = new ROSLIB.Topic({
+        name        : '/button/close',
         messageType : 'std_msgs/Empty'
-
-        }),
-
-        takeoffmsg = new ros.Topic({
-
+        });
+        takeoffmsg = new ROSLIB.Topic({
         name        : '/button/open',
-
         messageType : 'std_msgs/Empty'
-
         });
-
         function land(){
-
         close_msg.publish()
-
         };
-
         function takeoff(){
-
         open_msg.publish()
         };
 
-        window.addEventListener("deviceorientation", (event) => {
+        ros.on('connection', function () {
+            console.log("WebSocket: connected");
+            document.getElementById("wss_info").innerHTML = "接続済み";
+        });
+        ros.on('error', function (error) {
+            console.log("WebSocket error: ", error);
+            document.getElementById("wss_info").innerHTML = "接続エラー";
+        });
+        ros.on('close', function () {
+            console.log("WebSocket: closed");
+            document.getElementById("wss_info").innerHTML = "接続切断済み";
+        });
+    }
+}
+
+function request_permission() {
+    if (
+        DeviceMotionEvent &&
+        DeviceMotionEvent.requestPermission &&
+        typeof DeviceMotionEvent.requestPermission === 'function'
+    ) {
+        DeviceMotionEvent.requestPermission();
+    }
+    if (
+        DeviceOrientationEvent &&
+        DeviceOrientationEvent.requestPermission &&
+        typeof DeviceOrientationEvent.requestPermission === 'function'
+    ) {
+        DeviceOrientationEvent.requestPermission();
+    }
+}
+
+window.addEventListener("deviceorientation", (event) => {
     // http://wiki.ros.org/roslibjs/Tutorials/Publishing%20video%20and%20IMU%20data%20with%20roslibjs
     var beta_radian = ((event.beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);  // x軸（左右）まわりの回転の角度（引き起こすとプラス）
     var gamma_radian = ((event.gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);// y軸（上下）まわりの回転の角度（右に傾けるとプラス）
