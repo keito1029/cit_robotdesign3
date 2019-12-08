@@ -1,4 +1,3 @@
-
 // 構造体
 function ImuData() {
     this.a_x;
@@ -28,16 +27,6 @@ function connect() {
             ros: ros,
             name: 'imu/data_raw',
             messageType: "sensor_msgs/Imu"
-        });
-        closemsg = new ROSLIB.Topic({
-        
-        name        : '/button/close',
-        messageType : "std_msgs/Bool"
-        });
-        openmsg = new ROSLIB.Topic({
-        
-        name        : '/button/open',
-        messageType : "std_msgs/Bool"
         });
 
         ros.on('connection', function () {
@@ -111,10 +100,6 @@ var data_send = function () {
     }
 }
 
-        closemsg.publish(data);
-        
-        openmsg.publish(data);
-        
 window.addEventListener("devicemotion", devicemotionHandler);
 function devicemotionHandler(event) {
 
