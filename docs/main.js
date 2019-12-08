@@ -1,3 +1,4 @@
+
 // 構造体
 function ImuData() {
     this.a_x;
