@@ -29,13 +29,13 @@ function connect() {
             name: 'imu/data_raw',
             messageType: "sensor_msgs/Imu"
         });
-        closemsg = new ros.Topic({
-        name        : '/botton/close',
-        messageType : 'std_msgs/Empty'
+        closemsg = new ROSLIB.Topic({
+        name        : '/button/close',
+        messageType : "std_msgs/Bool"
         });
-        takeoffmsg = new ros.Topic({
+        takeoffmsg = new ROSLIB.Topic({
         name        : '/button/open',
-        messageType : 'std_msgs/Empty'
+        messageType : "std_msgs/Bool"
         });
 
         ros.on('connection', function () {
@@ -109,10 +109,10 @@ var data_send = function () {
     }
 }
 
-        function land(){
+        function close(){
         close_msg.publish()
         };
-        function takeoff(){
+        function open(){
         open_msg.publish()
         };
 
