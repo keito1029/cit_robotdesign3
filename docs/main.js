@@ -30,11 +30,7 @@ function connect() {
             messageType: "sensor_msgs/Imu"
         });
         
-        closemsg = new ROSLIB.Topic({
-
-        name        : '/button/close',
-        messageType : "std_msgs/Bool"
-        });
+        
 
         ros.on('connection', function () {
             console.log("WebSocket: connected");
@@ -106,6 +102,12 @@ var data_send = function () {
         imu_publisher.publish(msg);
     }
 }
+
+var closemsg = new ROSLIB.Topic({
+
+        name        : '/button/close',
+        messageType : "std_msgs/Bool"
+        });
 closemsg.publish(data);
 function close(data){
     if(data==true){
