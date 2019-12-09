@@ -134,7 +134,7 @@ function devicemotionHandler(event) {
 setInterval(data_send, 10);
 
 
-var data=boolian("true");
+var data= new boolian("true");
 const closemsg = new ROSLIB.Topic({
     ros : ros,
     name : '/button/close',
@@ -155,4 +155,4 @@ function close(grip){
 
         grip.data=true;
 
-    };
+    }}
