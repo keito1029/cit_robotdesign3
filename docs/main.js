@@ -135,25 +135,24 @@ setInterval(data_send, 10);
 
 
 var data=boolian("true");
+const closemsg = new ROSLIB.Topic({
+    ros : ros,
+    name : '/button/close',
+    messageType : 'std_msgs/Bool'
+});
 
-var closemsg = new ROSLIB.Topic({
+const grip=new ROSLIB.Message({
+    bool:{data:true}});
+closemsg.publish(grip);
 
-        name        : '/button/close',
+function close(grip){
 
-        messageType : "std_msgs/Bool"
+    if(grip.data==true){
 
-        });
-
-closemsg.publish(data);
-
-function close(data){
-
-    if(data==true){
-
-        data=false;
+        grip.data=false;
 
     }else{
 
-        data=true;
+        grip.data=true;
 
     };
