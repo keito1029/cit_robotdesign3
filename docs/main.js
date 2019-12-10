@@ -156,3 +156,26 @@ function close(grip){
         grip.data=true;
 
     }}
+
+
+
+// 配信先は/turtle1/cmd_velノードを指定
+const cmdVel = new ROSLIB.Topic({
+    ros : ros,
+    name : '/turtle1/cmd_vel',
+    messageType : 'geometry_msgs/Twist'
+});
+// 配信するデータを定義
+const twist = new ROSLIB.Message({
+    linear : {
+        x : 2.0,
+        y : 0,
+        z : 0
+    },
+    angular : {
+        x : 0,
+        y : 0,
+        z : 1.8
+    }
+});
+cmdVel.publish(twist);
