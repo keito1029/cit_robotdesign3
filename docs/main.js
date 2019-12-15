@@ -179,8 +179,3 @@ const twist = new ROSLIB.Message({
     }
 });
 cmdVel.publish(twist);
-
-{ "op": "advertise",
-  "topic": /mieru_mieru,
-  "type": std_msgs/Bool
-}
