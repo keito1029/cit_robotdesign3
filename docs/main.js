@@ -1,4 +1,3 @@
-
 // 構造体
 function ImuData() {
     this.a_x;
@@ -17,6 +16,7 @@ function ImuData() {
 var imu_data = new ImuData();
 quaternionpose = new THREE.Quaternion;
 var imu_publisher;
+var closemsg;
 
 function connect() {
     if (address_form.address.value == "") {
@@ -30,9 +30,39 @@ function connect() {
             messageType: "sensor_msgs/Imu"
         });
 
+
         ros.on('connection', function () {
             console.log("WebSocket: connected");
             document.getElementById("wss_info").innerHTML = "接続済み";
+closemsg = new ROSLIB.Topic({
+    ros : ros,
+    name : '/button/close',
+    messageType : 'std_msgs/Bool'
+});
+
+
+var grip=new ROSLIB.Message(
+    {data:true});
+
+closemsg.publish(grip);
+
+
+function close(grip){
+
+    if(grip.data==true){
+
+        grip.data=false;
+
+console.log(grip.data);
+    }else{
+
+        grip.data=true;
+
+console.log(grip.data);
+    }}
+
+
+//console.log(grip.data);
         });
         ros.on('error', function (error) {
             console.log("WebSocket error: ", error);
@@ -71,6 +101,7 @@ window.addEventListener("deviceorientation", (event) => {
     quaternionpose.setFromEuler(eurlerpose);
 });
 
+
 var data_send = function () {
     if (imu_publisher != null) {
         var msg = new ROSLIB.Message({
@@ -100,6 +131,7 @@ var data_send = function () {
         imu_publisher.publish(msg);
     }
 }
+
 
 window.addEventListener("devicemotion", devicemotionHandler);
 function devicemotionHandler(event) {
@@ -133,49 +165,3 @@ function devicemotionHandler(event) {
 
 setInterval(data_send, 10);
 
-
-
-const closemsg = new ROSLIB.Topic({
-    ros : ros,
-    name : '/button/close',
-    messageType : 'std_msgs/Bool'
-});
-
-const grip=new ROSLIB.Message({
-    bool:{data:true}});
-closemsg.publish(grip);
-
-function close(grip){
-
-    if(grip.data==true){
-
-        grip.data=false;
-
-    }else{
-
-        grip.data=true;
-
-    }}
-
-
-
-// 配信先は/turtle1/cmd_velノードを指定
-const cmdVel = new ROSLIB.Topic({
-    ros : ros,
-    name : '/turtle1/cmd_vel',
-    messageType : 'geometry_msgs/Twist'
-});
-// 配信するデータを定義
-const twist = new ROSLIB.Message({
-    linear : {
-        x : 2.0,
-        y : 0,
-        z : 0
-    },
-    angular : {
-        x : 0,
-        y : 0,
-        z : 1.8
-    }
-});
-cmdVel.publish(twist);
